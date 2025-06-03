@@ -1,26 +1,25 @@
-
 class Token:
-    def _init_(self, type_, value):
+    def __init__(self, type_, value):
         self.type = type_
         self.value = value
 
-    def _repr_(self):
+    def __repr__(self):
         return f"Token({self.type}, {self.value})"
 
 
 class ParseTree:
-    def _init_(self, node_type):
+    def __init__(self, node_type):
         self.node_type = node_type
         self.children = []
 
     def add_child(self, child):
         self.children.append(child)
 
-    def _repr_(self, level=0):
+    def __repr__(self, level=0):
         ret = "  " * level + f"{self.node_type}\n"
         for child in self.children:
             if isinstance(child, ParseTree):
-                ret += child._repr_(level + 1)
+                ret += child.__repr__(level + 1)
             else:
                 ret += "  " * (level + 1) + repr(child) + "\n"
         return ret
@@ -31,7 +30,7 @@ class ParseException(Exception):
 
 
 class CompilerParser:
-    def _init_(self, tokens):
+    def __init__(self, tokens):
         self.tokens = tokens
         self.current_index = 0
 
@@ -156,3 +155,6 @@ class CompilerParser:
         tree = ParseTree("expression")
         tree.add_child(self.mustBe("keyword", "skip"))
         return tree
+
+
+       
